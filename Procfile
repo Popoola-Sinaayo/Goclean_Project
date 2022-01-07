@@ -1,0 +1,1 @@
+web: gunicorn goclean_project.wsgi --log-file--

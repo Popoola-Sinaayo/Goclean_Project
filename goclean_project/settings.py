@@ -25,7 +25,7 @@ SECRET_KEY = '&=tb$c$t!s20br80he$bma-&iccny6@bg=a&=$oiag*@_+^p95'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['goclean_project.herokuapp.com']
 
 
 # Application definition
@@ -119,3 +119,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+
+STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, 'static'))
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
