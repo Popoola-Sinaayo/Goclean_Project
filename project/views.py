@@ -7,9 +7,6 @@ from .models import User_Info
 def home(request):
     return render(request, 'index.html')
 
-def new(request):
-    #Adding this to test aters
-    return render(request, 'index.html')
 
 def contact(request):
     if request.method == "GET":

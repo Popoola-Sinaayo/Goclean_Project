@@ -1,1 +1,1 @@
-web: gunicorn goclean_project.wsgi --log-file--
+web: gunicorn goclean_project.wsgi

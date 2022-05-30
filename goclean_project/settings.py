@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import dj_database_url
+import configparser
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,12 +23,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '&=tb$c$t!s20br80he$bma-&iccny6@bg=a&=$oiag*@_+^p95'
+#SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['goclean_project.herokuapp.com']
-
+ALLOWED_HOSTS = ['goclean-project.herokuapp.com']
+#ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -41,6 +44,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -76,10 +80,18 @@ WSGI_APPLICATION = 'goclean_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd6joqbo8tbeuv8',
+        'USER': 'njhxicasjtuodj',
+        'PASSWORD': 'e0142ad1b584799eb6dd6935015358dda0e463e64e81a2f1e9e7813be04b790d',
+        'HOST': 'ec2-3-224-251-59.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
+
+'''db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES ['default'].update(db_from_env)
+'''
 
 
 # Password validation
@@ -118,10 +130,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'project/static'),)
 
-STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, 'static'))
-
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
